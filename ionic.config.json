@@ -1,0 +1,7 @@
+{
+  "name": "ComeUnity",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
