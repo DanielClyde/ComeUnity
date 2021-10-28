@@ -1,0 +1,8 @@
+<div class="container {{size}}">
+  <ion-input mode="ios" [placeholder]="placeholder" [value]="value$ | async" (ionChange)="onChange($event.target['value'])"
+    [disabled]="disabled$ | async" [type]="type === 'password' && (showingPassword$ | async) ? 'text' : type"
+    [ngClass]="!icon ? 'inlinePad' : ''" [autocapitalize]="autocapitalize" [inputmode]="inputmode">
+  </ion-input>
+  <ion-icon class="toggle-password" *ngIf="type === 'password'" (click)="toggleShowingPassword()"
+  [name]="(showingPassword$ | async) ? 'eye' : 'eye-off'"></ion-icon>
+</div>

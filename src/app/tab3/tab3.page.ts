@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { SessionService } from './../services/session.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,6 +9,10 @@ import { Component } from '@angular/core';
 })
 export class Tab3Page {
 
-  constructor() {}
+  constructor(private session: SessionService, private router: Router) { }
 
+  logout() {
+    this.session.logout();
+    this.router.navigateByUrl('/login', { replaceUrl: true });
+  }
 }

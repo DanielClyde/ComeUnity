@@ -1,0 +1,37 @@
+<div class="login-container">
+  <div class="logo-container">uDown?</div>
+  <div class="divider"></div>
+  <form [formGroup]="credentials">
+    <app-input
+    formControlName="email"
+    placeholder="email"
+    type="email"
+    inputmode="email"></app-input>
+    <div class="divider sm"></div>
+    <app-input
+    formControlName="password"
+    placeholder="password"
+    type="password"
+    inputmode="password"></app-input>
+    <div class="divider sm"></div>
+    <ion-button (click)="login()" mode="ios" color="primary" [strong]="true" expand="block">Sign in</ion-button>
+    <div class="divider"></div>
+  </form>
+  <div class="light-text">
+    Don't have an account?<br>
+    <ion-button (click)="register()" class="button-link" mode="ios" color="primary" fill="clear">Register</ion-button>
+  </div>
+  <div class="divider sm"></div>
+  <div class="light-text">or</div>
+  <div class="divider sm"></div>
+
+  <form>
+    <ion-button mode="ios" (click)="appleAuthenticate()" color="light" expand="block">
+      <ion-icon name="logo-apple" slot="start"></ion-icon>
+      Sign in with Apple</ion-button>
+    <div class="divider sm"></div>
+    <ion-button mode="ios" (click)="googleAuthenticate()" color="dark" expand="block">
+      <ion-icon name="logo-google" slot="start"></ion-icon>
+      Sign in with Google</ion-button>
+  </form>
+</div>

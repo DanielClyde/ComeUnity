@@ -1,0 +1,41 @@
+@import '../../../theme/variables.scss';
+
+.login-container {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, white, $blue-very-light);
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-container {
+  color: $secondary;
+  text-align: center;
+  font-size: 3.5rem;
+  font-weight: 600;
+  text-shadow: 0 0 11px $light;
+}
+
+.light-text {
+  color: $placeholder-text;
+  text-align: center;
+}
+
+.button-link {
+  height: 30px;
+}
+
+form {
+  width: 100%;
+}
+
+.divider {
+  width: 100%;
+  height: 20px;
+  &.sm {
+    height: 10px;
+  }
+}

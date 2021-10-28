@@ -1,6 +1,6 @@
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
-import { Capacitor } from '@capacitor/core';
-import { ActionPerformed, PermissionStatus, PushNotifications, Token } from '@capacitor/push-notifications';
+import { SessionService } from '../services/session.service';
 
 @Component({
   selector: 'app-tab1',
@@ -9,30 +9,6 @@ import { ActionPerformed, PermissionStatus, PushNotifications, Token } from '@ca
 })
 export class Tab1Page {
 
-  constructor() {
-    if (Capacitor.isNativePlatform) {
-      PushNotifications.requestPermissions().then((status: PermissionStatus) => {
-        if (status.receive !== 'denied') {
-          this.initNotificationListeners();
-          PushNotifications.register();
-        }
-      });
-    }
-  }
-
-  private initNotificationListeners() {
-    PushNotifications.addListener('registration', (token: Token) => {
-      console.log('REGISTRATION SUCCESS', token);
-    });
-    PushNotifications.addListener('registrationError', (err) => {
-      console.log('REGISTRATION FAILED', err);
-    });
-    PushNotifications.addListener('pushNotificationReceived', (notification) => {
-      console.log('NOTIFICATION RECEIVED', notification);
-    });
-    PushNotifications.addListener('pushNotificationActionPerformed', (action: ActionPerformed) => {
-      console.log('ACTION', action);
-    });
-  }
+  constructor() { }
 
 }

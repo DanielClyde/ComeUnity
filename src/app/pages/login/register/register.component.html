@@ -1,0 +1,48 @@
+<ion-header mode="ios" translucent="true">
+  <ion-toolbar mode="ios">
+    <ion-title color="secondary">Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content mode="ios" fullscreen="true">
+  <div class="register-container">
+    <ion-note color="secondary">Nice to meet you!</ion-note>
+    <div class="divider sm"></div>
+    <form [formGroup]="registration">
+      <app-input
+      formControlName="email"
+      placeholder="email"
+      type="email"
+      inputmode="email"></app-input>
+      <div class="divider"></div>
+      <app-input
+      formControlName="firstname"
+      placeholder="first name"
+      autocapitalize="word"
+      ></app-input>
+      <div class="divider"></div>
+      <app-input
+      formControlName="lastname"
+      placeholder="last name"
+      autocapitalize="word"
+      ></app-input>
+      <div class="divider"></div>
+      <app-input
+      formControlName="password"
+      placeholder="password"
+      type="password"
+      ></app-input>
+      <div class="divider"></div>
+      <app-input
+      formControlName="passwordConfirm"
+      placeholder="confirm password"
+      type="password"
+      ></app-input>
+      <div class="error">
+        <div @growInOut class="err-msg" *ngIf="(showError | async)">
+          <ion-note color="danger">The two given passwords do not match.</ion-note>
+        </div>
+      </div>
+      <ion-button [disabled]="registration.invalid" (click)="registerClicked()" mode="ios" color="primary" [strong]="true" expand="block">Register</ion-button>
+    </form>
+  </div>
+</ion-content>

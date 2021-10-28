@@ -9,6 +9,7 @@
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
 
+ @import './theme/variables.scss';
 /* Core CSS required for Ionic components to work properly */
 @import "~@ionic/angular/css/core.css";
 
@@ -24,3 +25,15 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+/*Change text in autofill textbox*/
+input:-webkit-autofill{
+  background: white !important;
+  -webkit-text-fill-color: $placeholder-text;
+}
+
+ion-toolbar  {
+  --background: white;
+  --opacity: 1;
+}
