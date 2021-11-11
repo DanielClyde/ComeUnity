@@ -8,7 +8,10 @@ const config: CapacitorConfig = {
   plugins: {
     PushNotifications: {
       presentationOptions: ["sound", "alert"],
-    }
+    },
+  },
+  server: {
+    hostname: 'udownapp.com',
   }
 };
 

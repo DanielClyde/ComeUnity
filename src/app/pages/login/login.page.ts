@@ -1,3 +1,4 @@
+import { StatusBar, Style } from '@capacitor/status-bar';
 import { RegisterComponent } from './register/register.component';
 import { Capacitor } from '@capacitor/core';
 import { HttpService } from './../../services/http.service';
@@ -34,10 +35,11 @@ export class LoginPage implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
+    StatusBar.setStyle({ style: Style.Light });
   }
 
   async appleAuthenticate() {
-    if(Capacitor.getPlatform() !== 'ios') {
+    if (Capacitor.getPlatform() !== 'ios') {
       this.showToast('Sign in with Apple is only available on iOS devices');
       return;
     }
@@ -51,7 +53,7 @@ export class LoginPage implements OnInit {
       const { success, user } = await this.session.loginWithAppleResponse(res.response);
       await l.dismiss();
       if (success) {
-        this.router.navigateByUrl('/tabs', { replaceUrl: true });
+        this.router.navigateByUrl('/home', { replaceUrl: true });
       }
     } catch (e) {
       console.log(e);
@@ -73,7 +75,7 @@ export class LoginPage implements OnInit {
         const { success, user } = await this.session.loginWithCredentials(this.credentials.value.email, this.credentials.value.password);
         await loading.dismiss();
         if (success) {
-          this.router.navigateByUrl('/tabs', { replaceUrl: true });
+          this.router.navigateByUrl('/home', { replaceUrl: true });
         } else {
           this.showToast('Failed to authenticate');
         }

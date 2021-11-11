@@ -1,5 +1,5 @@
 import { Capacitor } from '@capacitor/core';
-import { User, DeviceStats } from 'comeunitymodels/src/db/User';
+import { User, DeviceStats } from 'comeunitymodels';
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { PushNotificationService } from './push-notification.service';
 import { RxJsUtils } from '../../utils/Utils';
@@ -96,7 +96,7 @@ export class SessionService {
     await this.storage.remove(StorageKeys.TOKEN);
   }
 
-  private userFetched(doc: any): User {
+  userFetched(doc: any): User {
     console.log('user fetched', doc);
     if (!doc || !doc._id || !doc.email) { return; }
     this.userLastFetchedAt = new Date();

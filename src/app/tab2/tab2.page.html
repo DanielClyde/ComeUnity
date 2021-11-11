@@ -1,23 +1,26 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      My Events
-    </ion-title>
-  </ion-toolbar>
-  <ion-toolbar>
-    <ion-searchbar></ion-searchbar>
-    <ion-buttons slot="end">
+<ion-header translucent="true">
+  <ion-toolbar color="secondary">
+    <ion-buttons collapse="true" slot="end">
       <ion-button>
-        <ion-icon name="filter-circle-outline"></ion-icon>
+        <ion-icon slot="icon-only" name="filter-circle-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
+    <ion-title>My Events</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
+<ion-content fullscreen="true" color="secondary">
+  <ion-header collapse="condense" class="ion-no-border">
+    <ion-toolbar color="secondary">
+      <ion-buttons collapse="true" slot="end">
+        <ion-button>
+          <ion-icon slot="icon-only" name="filter-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
       <ion-title size="large">My Events</ion-title>
+    </ion-toolbar>
+    <ion-toolbar color="secondary">
+      <ion-searchbar></ion-searchbar>
     </ion-toolbar>
   </ion-header>
 

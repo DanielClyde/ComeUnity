@@ -1,5 +1,17 @@
-ion-slides {
-  height: 100%;
-  --bullet-background-active: #fff;
-  --bullet-background: #000;
+
+
+.chips {
+  padding: 0px 8px;
+}
+
+ion-title {
+  text-overflow: unset;
+  white-space: unset;
+}
+
+#letsGo {
+  position: absolute;
+  bottom: 20px;
+  left: 8px;
+  right: 8px;
 }

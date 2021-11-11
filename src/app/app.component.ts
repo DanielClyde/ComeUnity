@@ -1,5 +1,4 @@
-import { SessionService } from './services/session.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 
 @Component({
@@ -10,7 +9,6 @@ import { Platform } from '@ionic/angular';
 export class AppComponent {
   constructor(
     private platform: Platform,
-    private session: SessionService,
   ) {
     this.platform.ready().then(() => {
       console.log('%c Platform ready', 'color: cyan');

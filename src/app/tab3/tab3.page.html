@@ -7,13 +7,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <ion-header collapse="condense" class="ion-no-border">
     <ion-toolbar>
       <ion-title size="large">Account</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <ion-button (click)="logout()">Logout</ion-button>
-
-
+  <ion-button expand="block" color="danger" (click)="logout()">Logout</ion-button>
 </ion-content>

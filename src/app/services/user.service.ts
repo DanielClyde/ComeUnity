@@ -1,4 +1,4 @@
-import { UserDTO, User } from 'comeunitymodels/src/db/User';
+import { UserDTO, User } from 'comeunitymodels';
 import { HttpService } from './http.service';
 import { Injectable } from '@angular/core';
 
@@ -17,6 +17,15 @@ export class UserService {
   async createUser(dto: UserDTO): Promise<UpdateUserResponse> {
     try {
       const response = await this.http.post<UpdateUserResponse>('api/user', dto);
+      return response;
+    } catch (e) {
+      return { success: false };
+    }
+  }
+
+  async updateUserInterests(userId: string, interests: string[]) {
+    try {
+      const response = await this.http.put<UpdateUserResponse>('api/user/' + userId, { interests })
       return response;
     } catch (e) {
       return { success: false };

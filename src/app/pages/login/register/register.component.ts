@@ -1,3 +1,4 @@
+import { ModalController, ToastController } from '@ionic/angular';
 import { UserService } from './../../../services/user.service';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors, FormControl } from '@angular/forms';
@@ -26,7 +27,12 @@ export class RegisterComponent implements OnInit {
   registration: FormGroup;
   showError = new BehaviorSubject<boolean>(false);
 
-  constructor(private fb: FormBuilder, private users: UserService) { }
+  constructor(
+    private fb: FormBuilder,
+    private users: UserService,
+    private modalCtrl: ModalController,
+    private toast: ToastController,
+    ) { }
 
   ngOnInit() {
     this.registration = this.fb.group({
@@ -55,11 +61,21 @@ export class RegisterComponent implements OnInit {
       const res = await this.users.createUser({
         ...this.registration.value,
       });
-      console.log(res);
       if (res.success && res.user) {
-
+        const t = await this.toast.create({
+          message: 'Account Created!',
+          color: 'success',
+          duration: 1000,
+        });
+        await t.present();
+        this.modalCtrl.dismiss();
       } else {
-
+        const t = await this.toast.create({
+          message: 'Failed to register at this time.',
+          color: 'danger',
+          duration: 2000,
+        });
+        await t.present();
       }
     }
   }

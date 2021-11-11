@@ -33,7 +33,6 @@ input:-webkit-autofill{
   -webkit-text-fill-color: $placeholder-text;
 }
 
-ion-toolbar  {
-  --background: white;
-  --opacity: 1;
+ion-tab-bar {
+  --border: none;
 }
