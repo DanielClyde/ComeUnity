@@ -1,3 +1,4 @@
+import { PlacesService } from './services/places.service';
 import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
 

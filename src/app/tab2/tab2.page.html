@@ -10,6 +10,10 @@
 </ion-header>
 
 <ion-content fullscreen="true" color="secondary">
+  <div #topRef></div>
+  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-header collapse="condense" class="ion-no-border">
     <ion-toolbar color="secondary">
       <ion-buttons collapse="true" slot="end">
@@ -20,65 +24,55 @@
       <ion-title size="large">My Events</ion-title>
     </ion-toolbar>
     <ion-toolbar color="secondary">
-      <ion-searchbar></ion-searchbar>
+      <ion-searchbar color="light"></ion-searchbar>
     </ion-toolbar>
   </ion-header>
 
-  <ion-list>
-    <ion-card>
-      <img src="http://placekitten.com/400/200" />
+  <ion-header class="ion-no-border topHeader">
+    <ion-title size="large">Posted</ion-title>
+  </ion-header>
+  <ion-list *ngIf="(events.userCreatedEvents | async)?.length; else noPosts">
+    <ion-card *ngFor="let event of (events.userCreatedEvents | async)" color="secondary">
+      <img [src]="event.imgUrl" width="400" height="200" />
       <ion-card-header>
-        <ion-card-subtitle>Destination</ion-card-subtitle>
-        <ion-card-title>Madison, WI</ion-card-title>
+        <ion-card-subtitle>{{event.distanceInMeters ? event.distanceInMeters + ' - ' : ''}}{{event.address.description | titlecase}}</ion-card-subtitle>
+        <ion-card-title>{{event.title | titlecase}}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the
-        Wisconsin Territory in 1836.
-      </ion-card-content>
-    </ion-card>
-    <ion-card>
-      <img src="http://placekitten.com/400/200" />
-      <ion-card-header>
-        <ion-card-subtitle>Destination</ion-card-subtitle>
-        <ion-card-title>Madison, WI</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the
-        Wisconsin Territory in 1836.
-      </ion-card-content>
-    </ion-card>
-    <ion-card>
-      <img src="http://placekitten.com/400/200" />
-      <ion-card-header>
-        <ion-card-subtitle>Destination</ion-card-subtitle>
-        <ion-card-title>Madison, WI</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the
-        Wisconsin Territory in 1836.
-      </ion-card-content>
-    </ion-card>
-    <ion-card>
-      <img src="http://placekitten.com/400/200" />
-      <ion-card-header>
-        <ion-card-subtitle>Destination</ion-card-subtitle>
-        <ion-card-title>Madison, WI</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the
-        Wisconsin Territory in 1836.
-      </ion-card-content>
-    </ion-card>
-    <ion-card>
-      <img src="http://placekitten.com/400/200" />
-      <ion-card-header>
-        <ion-card-subtitle>Destination</ion-card-subtitle>
-        <ion-card-title>Madison, WI</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the
-        Wisconsin Territory in 1836.
+        {{event.description}}
       </ion-card-content>
     </ion-card>
   </ion-list>
+  <ng-template #noPosts>
+    <p class="nothing-to-see">
+      No events posted yet...<br>
+      Post one by tapping the <ion-icon name="add"></ion-icon> button below!
+    </p>
+  </ng-template>
+  <ion-header class="ion-no-border topHeader">
+    <ion-title size="large">RSVP'd</ion-title>
+  </ion-header>
+  <ion-list *ngIf="(rsvps.rsvpdEvents | async)?.length; else noRsvps">
+    <ion-card *ngFor="let event of (rsvps.rsvpdEvents | async)" color="secondary">
+      <img [src]="event.imgUrl" width="400" height="200" />
+      <ion-card-header>
+        <ion-card-subtitle>{{event.distanceInMeters ? event.distanceInMeters + ' - ' : ''}}{{event.address.description | titlecase}}</ion-card-subtitle>
+        <ion-card-title>{{event.title | titlecase}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        {{event.description}}
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+  <ng-template #noRsvps>
+    <p class="nothing-to-see">
+      You haven't RSVP'd to any events yet...<br>
+      Check out the "Discover" page to find nearby events!
+    </p>
+  </ng-template>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [disabled]="disableCreate | async" (click)="addEventClicked()" color="primary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

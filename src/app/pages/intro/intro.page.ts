@@ -1,6 +1,8 @@
+import { getRandomChipColor } from 'src/utils/Constants';
+import { TagChip } from './../create-event/tag-select/tag-select.component';
+import { RxJsUtils } from './../../../utils/Utils';
 import { UserService } from './../../services/user.service';
 import { SessionService } from './../../services/session.service';
-import { StorageService, StorageKeys } from './../../services/storage.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AlertController, ToastController, LoadingController } from '@ionic/angular';
@@ -11,25 +13,30 @@ import { AlertController, ToastController, LoadingController } from '@ionic/angu
   styleUrls: ['./intro.page.scss'],
 })
 export class IntroPage implements OnInit {
-  GeneralInterests: { label: string, color: string }[] = [
+  GeneralInterests: TagChip[] = [
     { label: 'Movies', color: 'dark' },
     { label: 'Sports', color: 'warning' },
     { label: 'Crafts', color: 'tertiary' },
     { label: 'Music', color: 'success' },
-    { label: 'Outdoors', color: 'danger' },
+    { label: 'Camping', color: 'danger' },
     { label: 'Video Games', color: 'primary' },
     { label: 'Books', color: 'dark' },
     { label: 'Computers', color: 'warning' },
     { label: 'Theater', color: 'tertiary' },
+    { label: 'Painting', color: 'success' },
+    { label: 'Cooking', color: 'danger' },
+    { label: 'Baking', color: 'primary' },
+    { label: 'Quilting', color: 'dark' },
+    { label: 'Animals', color: 'warning' },
+    { label: 'Hiking', color: 'tertiary' },
   ];
 
-  selected: { label: string, color: string, isCustom?: boolean }[] = [];
+  selected: TagChip[] = [];
 
   private customColorIndex = 0;
 
   constructor(
     private router: Router,
-    private storage: StorageService,
     private alertCtrl: AlertController,
     private toast: ToastController,
     private load: LoadingController,
@@ -37,7 +44,14 @@ export class IntroPage implements OnInit {
     private users: UserService,
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    const u = await RxJsUtils.getPromiseVal(this.session.user$);
+    this.selected = u.interests?.map((label) => {
+      return {
+        label,
+        color: getRandomChipColor(),
+      };
+    }) || [];
   }
 
   async addCustom() {
@@ -59,7 +73,7 @@ export class IntroPage implements OnInit {
         ...this.selected,
         {
           label: res?.data?.values?.label,
-          color: this.getRandomColor(),
+          color: getRandomChipColor(),
           isCustom: true
         },
       ];
@@ -94,11 +108,6 @@ export class IntroPage implements OnInit {
     } else {
       await this.showToast('Failed to save changes!', 'danger');
     }
-  }
-
-  private getRandomColor(): string {
-    this.customColorIndex = (this.customColorIndex + 1) % 6;
-    return ['dark', 'warning', 'tertiary', 'success', 'danger', 'primary'][this.customColorIndex];
   }
 
   private async showToast(message: string, color = 'success') {

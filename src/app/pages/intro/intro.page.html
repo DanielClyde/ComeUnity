@@ -1,5 +1,5 @@
 <ion-header translucent="true">
-  <ion-toolbar color="light">
+  <ion-toolbar color="primary">
     <ion-title>
         Welcome, {{(session.user$ | async)?.firstname}}!
     </ion-title>
@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content fullscreen="true" color="light">
-  <ion-list-header color="light">What are your interests?</ion-list-header>
+  <ion-list-header color="light">What do you like?</ion-list-header>
   <div class="chips">
     <p>
       <ion-chip *ngFor="let interest of GeneralInterests" (click)="select(interest)" [color]="interest.color">

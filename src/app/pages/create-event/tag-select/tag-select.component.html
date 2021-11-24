@@ -1,0 +1,16 @@
+<ion-content color="light">
+  <ion-list-header color="light">
+    <ion-label>{{title}}</ion-label>
+  </ion-list-header>
+  <div class="chips">
+    <p>
+      <ion-chip *ngFor="let chip of (events.availableTags | async)" [color]="chip.color" (click)="events.selectTag(chip)">
+        <ion-label>{{chip.label}}</ion-label>
+      </ion-chip>
+      <ion-chip (click)="addCustom()" color="dark">
+        <ion-label>Other</ion-label>
+        <ion-icon name="add-circle"></ion-icon>
+      </ion-chip>
+    </p>
+  </div>
+</ion-content>

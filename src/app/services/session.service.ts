@@ -44,8 +44,12 @@ export class SessionService {
 
   async attemptRefresh(): Promise<LoginResponse> {
     const refreshToken = await RxJsUtils.getPromiseVal(this.refreshToken$);
-    const res = await this.http.post<LoginResponse>('api/auth/refresh', { refreshToken });
-    return this.handleLoginResponse(res);
+    try {
+      const res = await this.http.post<LoginResponse>('api/auth/refresh', { refreshToken });
+      return this.handleLoginResponse(res);
+    } catch (e) {
+      return this.handleLoginResponse({ success: false });
+    }
   }
 
   async loginWithCredentials(email: string, password: string): Promise<LoginResponse> {
@@ -113,7 +117,6 @@ export class SessionService {
   }
 
   private handleLoginResponse(res: LoginResponse): LoginResponse {
-    console.log('handleLoginResponse', res);
     if (res.token) {
       this.token$.next(res.token);
       this.storage.setStringInStorage(StorageKeys.TOKEN, res.token);
@@ -160,7 +163,6 @@ export class SessionService {
       try {
         console.log('updating user device stats', deviceStats);
         const res = await this.http.put<{ success: boolean, user?: User }>(`api/user/${user._id}/device-stats`, deviceStats);
-        console.log('user device stats updated response', res);
         if (res?.success && res.user) {
           this.userFetched(user);
         }

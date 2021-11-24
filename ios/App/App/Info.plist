@@ -27,6 +27,16 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera is used to post photos of events</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Location is used to find nearby events</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Location is used to find nearby events</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Photos are used for posting on events</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Photos are used for posting on events</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

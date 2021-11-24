@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title>Post Event</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <ion-list>
+    <form [formGroup]="detailsForm">
+      <ion-item-group>
+        <ion-list-header color="light">Details</ion-list-header>
+        <ion-item color="light">
+          <ion-icon name="globe-outline" slot="start"></ion-icon>
+          <ion-input formControlName="title" type="text" placeholder="Event Title"></ion-input>
+        </ion-item>
+        <ion-item color="light">
+          <ion-icon slot="start" name="reorder-three-outline"></ion-icon>
+          <ion-textarea formControlName="description" placeholder="Event Description"></ion-textarea>
+        </ion-item>
+      </ion-item-group>
+
+      <ion-item-group>
+        <ion-list-header color="light">Time</ion-list-header>
+        <ion-item color="light">
+          <ion-icon slot="start" name="calendar-clear-outline"></ion-icon>
+          <ion-datetime placeholder="Start Date" formControlName="dateStart" displayFormat="D MMM YYYY" [min]="now"
+            [max]="nextYear"></ion-datetime>
+        </ion-item>
+        <ion-item color="light">
+          <ion-icon slot="start" name="time-outline"></ion-icon>
+          <ion-datetime placeholder="Start Time" formControlName="timeStart" displayFormat="h:mm A"></ion-datetime>
+        </ion-item>
+        <ion-item color="light">
+          <ion-icon slot="start" name="timer-outline"></ion-icon>
+          <ion-datetime placeholder="End Time" formControlName="timeEnd" displayFormat="h:mm A"></ion-datetime>
+        </ion-item>
+      </ion-item-group>
+    </form>
+
+    <ion-item-group>
+      <ion-list-header lines="none" color="light">Location</ion-list-header>
+      <ion-toolbar color="light">
+        <ion-searchbar class="ion-no-border" #addressSearch inputmode="search" showClearButton="focus"
+          placeholder="Search address" debounce="350" enterkeyhint="search"></ion-searchbar>
+      </ion-toolbar>
+      <ion-item detail="false" button (click)="selectAddressPrediction(prediction)" color="light"
+        *ngFor="let prediction of (addressPredictions | async)">
+        <ion-icon slot="start" name="pin-outline"></ion-icon>
+        <ion-label>{{prediction.description}}</ion-label>
+      </ion-item>
+    </ion-item-group>
+
+    <ion-item-group>
+      <ion-list-header color="light">Photo</ion-list-header>
+      <div class="no-image-container">
+        <div *ngIf="!detailsForm.get('imgDataUrl').value" class="no-image" (click)="changePhoto()">
+          <ion-icon name="camera-outline" color="secondary"></ion-icon>
+          <ion-label color="secondary">Tap to change</ion-label>
+        </div>
+        <img (click)="changePhoto()" *ngIf="detailsForm.get('imgDataUrl').value" [src]="detailsForm.get('imgDataUrl').value">
+      </div>
+    </ion-item-group>
+  </ion-list>
+
+
+  <ion-list lines="none">
+    <ion-list-header lines="none" color="light">
+      <ion-label>Tags</ion-label>
+      <ion-button (click)="editTags()">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-list-header>
+  </ion-list>
+  <div class="chips">
+    <p>
+      <ion-chip *ngFor="let interest of (events.selectedTags | async)" (click)="events.deselectTag(interest)"
+        [color]="interest.color">
+        <ion-label>{{interest.label}}</ion-label>
+        <ion-icon name="close-circle"></ion-icon>
+      </ion-chip>
+    </p>
+  </div>
+
+  <ion-button [disabled]="detailsForm.invalid" expand="block" fill="solid" color="primary" (click)="submit()">Post Event
+  </ion-button>
+</ion-content>

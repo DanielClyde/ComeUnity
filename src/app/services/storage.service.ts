@@ -7,7 +7,6 @@ export enum StorageKeys {
   USER_LAST_FETCHED_AT = 'userLastFetchedAt',
   DEVICE_ID_FOR_REFRESH = 'deviceIdForRefresh',
   REFRESH_TOKEN = 'refreshToken',
-  INTRO_SEEN = 'introSeen',
   PUSH_NOTIFICATIONS_TOKEN = 'pushNotificationsToken',
 }
 

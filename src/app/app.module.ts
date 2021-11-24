@@ -1,3 +1,5 @@
+import { EventsService } from './services/events.service';
+import { PlacesService } from './services/places.service';
 import { AuthInterceptor } from './gaurds/authInterceptor.interceptor';
 import { SessionService } from './services/session.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
