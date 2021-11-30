@@ -28,14 +28,12 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-header class="ion-no-border topHeader">
-    <ion-title size="large">Posted</ion-title>
-  </ion-header>
   <ion-list *ngIf="(events.userCreatedEvents | async)?.length; else noPosts">
-    <ion-card *ngFor="let event of (events.userCreatedEvents | async)" color="secondary">
+    <ion-list-header>Posted</ion-list-header>
+    <ion-card (click)="eventSelected(event)" *ngFor="let event of (events.userCreatedEvents | async)" color="secondary">
       <img [src]="event.imgUrl" width="400" height="200" />
       <ion-card-header>
-        <ion-card-subtitle>{{event.distanceInMeters ? event.distanceInMeters + ' - ' : ''}}{{event.address.description | titlecase}}</ion-card-subtitle>
+        <ion-card-subtitle>{{event.distanceInMeters ? (event.distanceInMeters | distance) + ' - ' : ''}}{{event.address.description | titlecase}}</ion-card-subtitle>
         <ion-card-title>{{event.title | titlecase}}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
@@ -49,14 +47,13 @@
       Post one by tapping the <ion-icon name="add"></ion-icon> button below!
     </p>
   </ng-template>
-  <ion-header class="ion-no-border topHeader">
-    <ion-title size="large">RSVP'd</ion-title>
-  </ion-header>
+
   <ion-list *ngIf="(rsvps.rsvpdEvents | async)?.length; else noRsvps">
-    <ion-card *ngFor="let event of (rsvps.rsvpdEvents | async)" color="secondary">
+    <ion-list-header>RSVP'd</ion-list-header>
+    <ion-card (click)="eventSelected(event)" *ngFor="let event of (rsvps.rsvpdEvents | async)" color="secondary">
       <img [src]="event.imgUrl" width="400" height="200" />
       <ion-card-header>
-        <ion-card-subtitle>{{event.distanceInMeters ? event.distanceInMeters + ' - ' : ''}}{{event.address.description | titlecase}}</ion-card-subtitle>
+        <ion-card-subtitle>{{event.distanceInMeters ? (event.distanceInMeters | distance) + ' - ' : ''}}{{event.address.description | titlecase}}</ion-card-subtitle>
         <ion-card-title>{{event.title | titlecase}}</ion-card-title>
       </ion-card-header>
       <ion-card-content>

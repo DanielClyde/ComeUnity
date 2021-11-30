@@ -27,10 +27,10 @@
     </ion-toolbar>
   </ion-header>
   <ion-list *ngIf="(events.nearbyEvents | async)?.length; else noEvents">
-    <ion-card *ngFor="let event of (events.nearbyEvents | async)" color="secondary">
+    <ion-card (click)="eventSelected(event)" *ngFor="let event of (events.nearbyEvents | async)" color="secondary">
       <img [src]="event.imgUrl" width="400" height="200" />
       <ion-card-header>
-        <ion-card-subtitle>{{event.distanceInMeters ? event.distanceInMeters + ' - ' : ''}}{{event.address.description | titlecase}}</ion-card-subtitle>
+        <ion-card-subtitle>{{event.distanceInMeters ? (event.distanceInMeters | distance) + ' - ' : ''}}{{event.address.description | titlecase}}</ion-card-subtitle>
         <ion-card-title>{{event.title | titlecase}}</ion-card-title>
       </ion-card-header>
       <ion-card-content>

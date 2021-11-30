@@ -18,6 +18,10 @@ const routes: Routes = [
     loadChildren: () => import ('./tabs/tabs.module').then(m => m.TabsPageModule),
     canLoad: [AuthGuard, IntroGuard],
   },
+  {
+    path: 'event-details',
+    loadChildren: () => import('./pages/event-details/event-details.module').then( m => m.EventDetailsPageModule)
+  },
 ];
 @NgModule({
   imports: [

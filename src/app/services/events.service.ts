@@ -5,7 +5,7 @@ import { RxJsUtils } from './../../utils/Utils';
 import { SessionService } from './session.service';
 import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Event, EventDTO, Rsvp } from 'comeunitymodels';
+import { Event, EventDTO, } from 'comeunitymodels';
 import * as _ from 'lodash';
 
 @Injectable({
@@ -15,6 +15,8 @@ export class EventsService {
   availableTags = new BehaviorSubject<TagChip[]>([]);
   selectedTags = new BehaviorSubject<TagChip[]>([]);
 
+  currentEvent = new BehaviorSubject<Event>(null);
+
   nearbyEvents = new BehaviorSubject<Event[]>([]);
   userCreatedEvents = new BehaviorSubject<Event[]>([]);
 
@@ -22,6 +24,15 @@ export class EventsService {
     private session: SessionService,
     private http: HttpService,
   ) { }
+
+  async selectEvent(event?: Event | string) {
+    if (event && (typeof event === 'string')) {
+      const res = await this.http.get<{success: Boolean, event?: Event}>('api/events/' + event);
+      this.currentEvent.next(res.event);
+    } else {
+      this.currentEvent.next(event as Event);
+    }
+  }
 
   selectTag(tag: TagChip) {
     this.availableTags.next([
@@ -46,14 +57,17 @@ export class EventsService {
   }
 
   async refreshNearbyEvents(coords: [number, number]) {
-    const {success, events} = await this.http.get<{success: boolean, events?: Event[]}>('api/events/nearby');
+    console.log('refreshing nearby events', coords);
+    const { success, events } =
+      await this.http.get<{ success: boolean, events?: Event[] }>(
+        `api/events/nearby?long=${coords[0]}&lat=${coords[1]}`);
     this.nearbyEvents.next(events ? events : []);
   }
 
   async refreshCreatedEvents() {
     const user = await RxJsUtils.getPromiseVal(this.session.user$);
     if (!user) { return; }
-    const {success, events} = await this.http.get<{success: boolean, events?: Event[]}>('api/events/created/' + user._id);
+    const { success, events } = await this.http.get<{ success: boolean, events?: Event[] }>('api/events/created/' + user._id);
     this.userCreatedEvents.next(events);
   }
 

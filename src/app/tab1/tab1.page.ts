@@ -2,7 +2,7 @@ import { LocationService } from './../services/location.service';
 import { EventsService } from './../services/events.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { SessionService } from '../services/session.service';
+import { Event } from 'comeunitymodels';
 
 @Component({
   selector: 'app-tab1',
@@ -14,10 +14,18 @@ export class Tab1Page implements OnInit {
   constructor(
     public events: EventsService,
     private location: LocationService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
     this.refresh();
+  }
+
+  eventSelected(event: Event) {
+    if (event?._id) {
+      this.events.selectEvent(event);
+      this.router.navigateByUrl('event-details/' + event._id)
+    }
   }
 
   async refresh(event?: any) {

@@ -2,7 +2,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.comeunity.comeunityapp',
-  appName: 'ComeUnity',
+  appName: 'UDown?',
   webDir: 'www',
   bundledWebRuntime: false,
   plugins: {

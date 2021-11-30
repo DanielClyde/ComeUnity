@@ -1,9 +1,11 @@
+import { Router } from '@angular/router';
 import { RsvpService } from './../services/rsvp.service';
 import { EventsService } from './../services/events.service';
 import { BehaviorSubject } from 'rxjs';
 import { CreateEventPage } from './../pages/create-event/create-event.page';
 import { ModalController } from '@ionic/angular';
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
+import { Event } from 'comeunitymodels';
 
 @Component({
   selector: 'app-tab2',
@@ -18,10 +20,18 @@ export class Tab2Page implements OnInit {
     public modal: ModalController,
     public events: EventsService,
     public rsvps: RsvpService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
     this.refresh();
+  }
+
+  eventSelected(event: Event) {
+    if (event?._id) {
+      this.events.selectEvent(event);
+      this.router.navigateByUrl('event-details/' + event._id)
+    }
   }
 
   async refresh(event?: any) {

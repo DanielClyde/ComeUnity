@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{(events.currentEvent | async)?.title | titlecase}}</ion-title>
+    <ion-buttons slot="end" *ngIf="(isCreator | async)">
+      <ion-button color="light" (click)="edit()"><ion-icon name="create-outline"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="(events.currentEvent | async) as event; else noEvent">
+  <div class="image-container">
+    <img [src]="event.imgUrl">
+  </div>
+  <ion-list-header>Details</ion-list-header>
+  <ion-item>
+    <ion-label>{{event.description}}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>{{event.startsAt | date:'MMM d, y, h:mm a'}}</ion-label>
+    <ion-note slot="end">{{event.durationMinutes | durationMinutes}} long</ion-note>
+  </ion-item>
+  <ion-item (click)="openMap(event.address)" button detailIcon="navigate-outline">
+    <ion-label>{{event.address?.description}}</ion-label>
+  </ion-item>
+
+  <ion-list-header>Announcements</ion-list-header>
+  <ion-item><ion-note>Coming Soon!</ion-note></ion-item>
+
+  <ion-list-header>Discussion</ion-list-header>
+  <ion-item><ion-note>Coming Soon!</ion-note></ion-item>
+
+  <ng-container *ngIf="(rsvpForCurrentEvent | async) as rsvp; else notRSVPd">
+    <ion-list-header>Notifications</ion-list-header>
+    <ion-item>
+      <ion-label>Notify Me On Updates</ion-label>
+      <ion-toggle (click)="toggleNotifyOnUpdates(rsvp)" [checked]="rsvp.preferences.notifyOnUpdates"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label>Notify Me On Announcements</ion-label>
+      <ion-toggle (click)="toggleNotifyOnAnnouncements(rsvp)" [checked]="rsvp.preferences.notifyOnAnnouncement"></ion-toggle>
+    </ion-item>
+    <ion-item>
+      <ion-label>Notify Me On Discussions</ion-label>
+      <ion-toggle (click)="toggleNotifyOnComments(rsvp)" [checked]="rsvp.preferences.notifyOnComment"></ion-toggle>
+    </ion-item>
+    <ion-button class="rsvpBtn" expand="block" color="primary">Cancel RSVP</ion-button>
+  </ng-container>
+  <ng-template #notRSVPd>
+    <ion-button *ngIf="!(isCreator | async)" (click)="rsvpForEvent(event._id)" class="rsvpBtn" expand="block" color="primary">RSVP</ion-button>
+  </ng-template>
+</ion-content>
+<ng-template #noEvent>Something went wrong!</ng-template>

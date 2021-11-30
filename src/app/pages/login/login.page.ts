@@ -1,3 +1,5 @@
+import { Haptics } from '@capacitor/haptics';
+import { ToastService } from './../../services/toast.service';
 import { StatusBar, Style } from '@capacitor/status-bar';
 import { RegisterComponent } from './register/register.component';
 import { Capacitor } from '@capacitor/core';
@@ -25,7 +27,7 @@ export class LoginPage implements OnInit {
     private session: SessionService,
     private router: Router,
     private loadingCtl: LoadingController,
-    private toast: ToastController,
+    private toast: ToastService,
     private modalCtl: ModalController,
     private elementRef: ElementRef,
   ) { }
@@ -40,7 +42,7 @@ export class LoginPage implements OnInit {
 
   async appleAuthenticate() {
     if (Capacitor.getPlatform() !== 'ios') {
-      this.showToast('Sign in with Apple is only available on iOS devices');
+      this.toast.showToast('Sign in with Apple is only available on iOS devices', 2000, 'danger');
       return;
     }
     const l = await this.loadingCtl.create();
@@ -58,12 +60,12 @@ export class LoginPage implements OnInit {
     } catch (e) {
       console.log(e);
       await l.dismiss();
-      this.showToast('Failed to authenticate');
+      this.toast.showToast('Failed to authenticate', 2000, 'danger');
     }
   }
 
   googleAuthenticate() {
-    this.showToast('Sign in with Google unavailable at this time');
+    this.toast.showToast('Sign in with Google unavailable at this time', 2000, 'danger');
   }
 
   async login() {
@@ -75,14 +77,15 @@ export class LoginPage implements OnInit {
         const { success, user } = await this.session.loginWithCredentials(this.credentials.value.email, this.credentials.value.password);
         await loading.dismiss();
         if (success) {
+          await Haptics.impact();
           this.router.navigateByUrl('/home', { replaceUrl: true });
         } else {
-          this.showToast('Failed to authenticate');
+          this.toast.showToast('Failed to authenticate', 2000, 'danger');
         }
       } catch (e) {
         console.log(e);
         await loading.dismiss();
-        this.showToast('Failed to authenticate');
+        this.toast.showToast('Failed to authenticate', 2000, 'danger');
       }
     }
   }
@@ -97,16 +100,4 @@ export class LoginPage implements OnInit {
     });
     await m.present();
   }
-
-  private async showToast(message: string, duration = 2000, color = 'danger'): Promise<void> {
-    const t = await this.toast.create({
-      message,
-      duration,
-      color,
-    });
-    await t.present();
-  }
-
-
-
 }

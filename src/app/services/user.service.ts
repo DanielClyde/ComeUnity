@@ -31,4 +31,16 @@ export class UserService {
       return { success: false };
     }
   }
+
+  async updateUserDoc(userId: string, update: Partial<UserDTO>) {
+    return this.http.put<{success: boolean, user?: User}>('api/user/' + userId, update);
+  }
+
+  async updateUserRangePreference(userId: string, range: Range) {
+
+  }
+
+  async updateUserRangeUnit(userId: string, unit: 'mi' | 'km') {
+
+  }
 }

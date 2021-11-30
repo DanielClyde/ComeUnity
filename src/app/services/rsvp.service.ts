@@ -2,7 +2,7 @@ import { RxJsUtils } from './../../utils/Utils';
 import { SessionService } from './session.service';
 import { HttpService } from './http.service';
 import { switchMap, distinctUntilChanged } from 'rxjs/operators';
-import { Rsvp, Event, RsvpDTO } from 'comeunitymodels';
+import { Rsvp, Event, RsvpDTO, RsvpNotificationPreferences, DeviceStats } from 'comeunitymodels';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
@@ -38,6 +38,19 @@ export class RsvpService {
     } else {
       this.rsvps.next([]);
     }
+  }
+
+  async updateRsvpNotificationPreferences(rsvpId: string, preferences: Partial<Omit<RsvpNotificationPreferences, keyof DeviceStats>>): Promise<{success: boolean, rsvp?: Rsvp}> {
+    const res = await this.http.put<{success: boolean, rsvp?: Rsvp}>(`api/rsvp/${rsvpId}/notifications`, preferences);
+    if (res.success && res.rsvp) {
+      const allRsvps = this.rsvps.value;
+      const index = allRsvps.findIndex((r) => r._id === rsvpId);
+      if (index > -1) {
+        allRsvps[index] = res.rsvp;
+      }
+      this.rsvps.next([...allRsvps]);
+    }
+    return res;
   }
 
   async rsvpToEvent(eventId: string): Promise<{ success: boolean, rsvp?: Rsvp }> {

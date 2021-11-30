@@ -3,15 +3,47 @@
     <ion-title>
       Account
     </ion-title>
+    <ion-buttons collapse=true slot="end">
+      <ion-button color="light"><ion-icon name="create-outline"></ion-icon></ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content *ngIf="(session.user$ | async) as user; else noUser" [fullscreen]="true">
   <ion-header collapse="condense" class="ion-no-border">
     <ion-toolbar>
       <ion-title size="large">Account</ion-title>
+      <ion-buttons collapse="true" slot="end">
+        <ion-button color="light"><ion-icon name="create-outline"></ion-icon></ion-button>
+      </ion-buttons>
     </ion-toolbar>
   </ion-header>
 
-  <ion-button expand="block" color="danger" (click)="logout()">Logout</ion-button>
+  <ion-list-header>Profile</ion-list-header>
+  <ion-item>
+    <ion-label>{{user.firstname | titlecase}} {{user.lastname | titlecase}}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>{{user?.email}}</ion-label>
+  </ion-item>
+  <ion-list-header>Preferences</ion-list-header>
+  <ion-item lines="none">
+    <ion-label>Search Range</ion-label>
+    <ion-note slot="end">{{user.preferences.distanceRange || 100}} {{user.preferences.distanceUnits || 'km'}}</ion-note>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-range debounce="400" (ionChange)="rangeChange(RangeMap[$event.detail.value])" min="0" max="4" snaps="true" ticks="true" [value]="RangeMapBack[user.preferences.distanceRange || 4]"></ion-range>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-segment (ionChange)="rangeUnitChange($event)" [value]="user.preferences.distanceUnits">
+      <ion-segment-button value="mi">mi</ion-segment-button>
+      <ion-segment-button value="km">km</ion-segment-button>
+    </ion-segment>
+  </ion-item>
+  <ion-button id=logoutBtn expand="block" color="danger" (click)="logout()">Logout</ion-button>
 </ion-content>
+<ng-template #noUser>
+  <ion-content>
+    <ion-list-header>Something Went Wrong!</ion-list-header>
+  </ion-content>
+</ng-template>

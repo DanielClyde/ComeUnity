@@ -1,3 +1,4 @@
+import { PipesModule } from './../pipes/pipes.module';
 import { CreateEventPageModule } from './../pages/create-event/create-event.module';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
@@ -15,6 +16,7 @@ import { Tab2PageRoutingModule } from './tab2-routing.module';
     FormsModule,
     Tab2PageRoutingModule,
     CreateEventPageModule,
+    PipesModule,
   ],
   declarations: [Tab2Page]
 })
