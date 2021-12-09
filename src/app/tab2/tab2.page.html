@@ -31,9 +31,11 @@
   <ion-list *ngIf="(events.userCreatedEvents | async)?.length; else noPosts">
     <ion-list-header>Posted</ion-list-header>
     <ion-card (click)="eventSelected(event)" *ngFor="let event of (events.userCreatedEvents | async)" color="secondary">
-      <img [src]="event.imgUrl" width="400" height="200" />
+      <div class="wide-img-container">
+        <img [src]="event.imgUrl" />
+      </div>
       <ion-card-header>
-        <ion-card-subtitle>{{event.distanceInMeters ? (event.distanceInMeters | distance) + ' - ' : ''}}{{event.address.description | titlecase}}</ion-card-subtitle>
+        <ion-card-subtitle>{{event.distanceInMeters ? (event.distanceInMeters | distance:((session.user$ | async)?.preferences?.distanceUnits === 'mi')) + ' - ' : ''}}{{event.address.description | titlecase}}</ion-card-subtitle>
         <ion-card-title>{{event.title | titlecase}}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
@@ -51,9 +53,11 @@
   <ion-list *ngIf="(rsvps.rsvpdEvents | async)?.length; else noRsvps">
     <ion-list-header>RSVP'd</ion-list-header>
     <ion-card (click)="eventSelected(event)" *ngFor="let event of (rsvps.rsvpdEvents | async)" color="secondary">
-      <img [src]="event.imgUrl" width="400" height="200" />
+      <div class="wide-img-container">
+        <img [src]="event.imgUrl" />
+      </div>
       <ion-card-header>
-        <ion-card-subtitle>{{event.distanceInMeters ? (event.distanceInMeters | distance) + ' - ' : ''}}{{event.address.description | titlecase}}</ion-card-subtitle>
+        <ion-card-subtitle>{{event.distanceInMeters ? (event.distanceInMeters | distance:((session.user$ | async)?.preferences?.distanceUnits === 'mi')) + ' - ' : ''}}{{event.address.description | titlecase}}</ion-card-subtitle>
         <ion-card-title>{{event.title | titlecase}}</ion-card-title>
       </ion-card-header>
       <ion-card-content>

@@ -1,3 +1,4 @@
+import { SessionService } from './../services/session.service';
 import { LocationService } from './../services/location.service';
 import { EventsService } from './../services/events.service';
 import { Router } from '@angular/router';
@@ -13,6 +14,7 @@ export class Tab1Page implements OnInit {
 
   constructor(
     public events: EventsService,
+    public session: SessionService,
     private location: LocationService,
     private router: Router,
   ) { }

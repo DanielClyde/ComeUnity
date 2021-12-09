@@ -77,7 +77,9 @@ export class LoginPage implements OnInit {
         const { success, user } = await this.session.loginWithCredentials(this.credentials.value.email, this.credentials.value.password);
         await loading.dismiss();
         if (success) {
-          await Haptics.impact();
+          if (Capacitor.isNativePlatform()) {
+            await Haptics.impact();
+          }
           this.router.navigateByUrl('/home', { replaceUrl: true });
         } else {
           this.toast.showToast('Failed to authenticate', 2000, 'danger');

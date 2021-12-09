@@ -59,8 +59,8 @@ export class EventsService {
   async refreshNearbyEvents(coords: [number, number]) {
     console.log('refreshing nearby events', coords);
     const { success, events } =
-      await this.http.get<{ success: boolean, events?: Event[] }>(
-        `api/events/nearby?long=${coords[0]}&lat=${coords[1]}`);
+      await this.http.get<{ success: boolean, events?: Event[] }>(coords?.length ?
+        `api/events/nearby?long=${coords[0]}&lat=${coords[1]}` : 'api/events/nearby');
     this.nearbyEvents.next(events ? events : []);
   }
 

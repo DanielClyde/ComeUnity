@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   backend: 'http://3.137.178.31/'
-  // backend: 'http://localhost:3000/'
+  // backend: 'http://129.123.251.187:3000/'
 };
 
 /*

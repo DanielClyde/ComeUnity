@@ -6,7 +6,7 @@ import { Camera, CameraResultType, ImageOptions, Photo } from '@capacitor/camera
 })
 export class CameraService {
   private defaultOpts: ImageOptions = {
-    quality: 80,
+    quality: 50,
     allowEditing: true,
     resultType: CameraResultType.DataUrl,
     promptLabelHeader: 'Event Photo',

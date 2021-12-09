@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "956054578685",
+    "project_id": "udown-332305",
+    "storage_bucket": "udown-332305.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:956054578685:android:a0e43378550a64ff446594",
+        "android_client_info": {
+          "package_name": "com.comeunity.comeunityapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "956054578685-trbm9fe9ld9tvrlahpl1fjvjm0ti5jjd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBX5LTZugHmrV__Fz5hDqVQ2ThlHoOt30o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "956054578685-trbm9fe9ld9tvrlahpl1fjvjm0ti5jjd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

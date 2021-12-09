@@ -13,6 +13,7 @@ export class IntroGuard implements CanLoad {
   constructor(private router: Router, private session: SessionService) { }
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> {
+    console.log('intro guard', route);
     return RxJsUtils.getVal(this.session.user$).pipe(
       map((u) => {
         if (u && u.interests?.length) {

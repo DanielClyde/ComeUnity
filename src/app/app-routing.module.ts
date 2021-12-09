@@ -20,7 +20,8 @@ const routes: Routes = [
   },
   {
     path: 'event-details',
-    loadChildren: () => import('./pages/event-details/event-details.module').then( m => m.EventDetailsPageModule)
+    loadChildren: () => import('./pages/event-details/event-details.module').then( m => m.EventDetailsPageModule),
+    canLoad: [AuthGuard, IntroGuard],
   },
 ];
 @NgModule({

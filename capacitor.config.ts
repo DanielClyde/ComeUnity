@@ -11,7 +11,8 @@ const config: CapacitorConfig = {
     },
   },
   server: {
-    hostname: 'udownapp.com',
+    hostname: 'udownmobile.com',
+    cleartext: true,
   }
 };
 

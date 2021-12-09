@@ -1,3 +1,4 @@
+import { SessionService } from './../services/session.service';
 import { Router } from '@angular/router';
 import { RsvpService } from './../services/rsvp.service';
 import { EventsService } from './../services/events.service';
@@ -21,6 +22,7 @@ export class Tab2Page implements OnInit {
     public events: EventsService,
     public rsvps: RsvpService,
     private router: Router,
+    public session: SessionService,
   ) {}
 
   ngOnInit() {

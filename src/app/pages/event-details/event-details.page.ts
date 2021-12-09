@@ -1,3 +1,4 @@
+import { Capacitor } from '@capacitor/core';
 import { ToastService } from './../../services/toast.service';
 import { Haptics } from '@capacitor/haptics';
 import { RsvpService } from './../../services/rsvp.service';
@@ -83,7 +84,9 @@ export class EventDetailsPage implements OnInit, OnDestroy {
   }
 
   async rsvpForEvent(eventId: string) {
-    await Haptics.impact();
+    if (Capacitor.isNativePlatform()) {
+      await Haptics.impact();
+    }
     const { success, rsvp } = await this.rsvps.rsvpToEvent(eventId)
     if (success) {
       this.toast.showToast('Successfully RSVP\'d to event!');
