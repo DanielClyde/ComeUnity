@@ -30,7 +30,7 @@
       <ion-icon name="logo-apple" slot="start"></ion-icon>
       Sign in with Apple</ion-button>
     <div class="divider sm"></div>
-    <ion-button mode="ios" (click)="googleAuthenticate()" color="dark" expand="block">
+    <ion-button *ngIf="isAndroid" mode="ios" (click)="googleAuthenticate()" color="dark" expand="block">
       <ion-icon name="logo-google" slot="start"></ion-icon>
       Sign in with Google</ion-button>
   </form>

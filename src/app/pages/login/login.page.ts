@@ -18,6 +18,7 @@ import { LoadingController, ModalController, ToastController } from '@ionic/angu
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  isAndroid = false
   credentials: FormGroup;
   get emailControl(): AbstractControl { return this.credentials.get('email'); }
   get passwordControl(): AbstractControl { return this.credentials.get('password'); }
@@ -38,6 +39,7 @@ export class LoginPage implements OnInit {
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
     StatusBar.setStyle({ style: Style.Light });
+    this.isAndroid = Capacitor.getPlatform() === 'android';
   }
 
   async appleAuthenticate() {
